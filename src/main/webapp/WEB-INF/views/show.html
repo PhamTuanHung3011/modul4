@@ -33,7 +33,7 @@
                 <td th:text="${c.name}"></td>
                 <td><img th:src="${c.img}" width="200" height="150"></td>
                 <td><a th:href="@{/edit/{id}(id=${c.id})}" class="btn btn-warning">Edit</a></td>
-                <td><a th:href="@{/delete(id=${c.id})}" class="btn btn-danger" name="imgDelete">Delete</a>
+                <td><a th:href="@{/delete(id=${c.id})}" class="btn btn-danger" >Delete</a>
                 </td>
             </tr>
             </tbody>

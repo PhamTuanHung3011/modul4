@@ -47,12 +47,17 @@ public class HomeController {
     }
 
     @GetMapping("/delete")
-    public ModelAndView deleteCustomer(@RequestParam int id, @RequestParam MultipartFile imgDelete){
-        String fileName =imgDelete.getOriginalFilename();
-        File file = new File("E:\\Tu\\modul4\\Demo_Thymeleaf_MD4-master\\Demo_Thymeleaf_MD4-master\\src\\main\\webapp\\WEB-INF\\file\\"+ fileName);
-        file.delete();
+    public ModelAndView deleteCustomer(@RequestParam int id){
         int index = customerService.findById(id);
-        customerService.delete(index);
+        Customer customer = customerService.list.get(index);
+        String filedelete = customer.getImg().replaceAll("/i/","");
+        String file1 = "E:\\Tu\\modul4\\Demo_Thymeleaf_MD4-master\\Demo_Thymeleaf_MD4-master\\src\\main\\webapp\\WEB-INF\\file\\" +filedelete;
+        System.out.println("namefile" + file1);
+            File file = new File(file1);
+            if(file.exists()){
+                file.delete();
+            }
+            customerService.delete(index);
         ModelAndView modelAndView = new ModelAndView("redirect:/customer");
         return modelAndView;
     }

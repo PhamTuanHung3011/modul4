@@ -1,10 +1,10 @@
 service/CustomerService.java
  service.CustomerService
-controllers/HomeController.java
- controllers.HomeController
 models/Customer.java
  models.Customer
-ApplicationInitializer.java
- ApplicationInitializer
 ApplicationConfig.java
  ApplicationConfig
+ApplicationInitializer.java
+ ApplicationInitializer
+controllers/HomeController.java
+ controllers.HomeController

@@ -1,3 +1,4 @@
+import com.sun.java.util.jar.pack.DriverResource;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -14,6 +15,9 @@ import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
+
+import javax.activation.DataSource;
+import java.sql.DriverManager;
 
 @Configuration
 @EnableWebMvc
@@ -65,4 +69,7 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter implements Applic
         multipartResolver.setMaxUploadSizePerFile(10000000);
         return multipartResolver;
     }
+
+//    cau hinh dataSource
+
 }
