@@ -11,7 +11,7 @@
 </head>
 <body>
 
-<form  action="/create" method="post">
+<form  action="/create" method="post" th:object="${customer}" enctype="multipart/form-data">
 <div class="container">
     <h2>Striped Rows</h2>
     <table class="table table-striped">
@@ -24,14 +24,14 @@
         </thead>
         <tbody>
         <tr>
-            <td><input name="id" placeholder="Nhập id"></td>
-            <td><input name="name" placeholder="Nhập Name"></td>
-            <td><input name="img" placeholder="Nhập Img"></td>
+            <td><input th:field="*{id}"></td>
+            <td><input th:field="*{name}"></td>
+            <td><input type="file" name="upImg"></td>
+
         </tr>
 
         <button class="btn btn-success" type="submit">create
         </button>
-
         </tbody>
     </table>
 </div>

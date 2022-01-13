@@ -53,16 +53,10 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter implements Applic
     }
 
 //    chỉ cho Spring biết chỗ lấy tài liệu tĩnh
-//    @Override
-//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//        String file = "E:\\Tu\\modul4\\Demo_Thymeleaf_MD4-master\\Demo_Thymeleaf_MD4-master\\src\\main\\webapp\\WEB-INF\\views";
-//        registry.addResourceHandler("/i/**")
-//                .addResourceLocations(file);
-//    }
 @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/i/**")
-                .addResourceLocations("E:\\Tu\\modul4\\Demo_Thymeleaf_MD4-master\\Demo_Thymeleaf_MD4-master\\src\\main\\webapp\\WEB-INF");
+                .addResourceLocations("file:E:\\Tu\\modul4\\Demo_Thymeleaf_MD4-master\\Demo_Thymeleaf_MD4-master\\src\\main\\webapp\\WEB-INF\\file\\");
     }
 
     @Bean

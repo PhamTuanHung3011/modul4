@@ -2,11 +2,15 @@ package controllers;
 
 import models.Customer;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import service.CustomerService;
 
+import java.io.File;
+import java.io.FileDescriptor;
+import java.io.IOException;
 import java.util.ArrayList;
 
 
@@ -23,17 +27,30 @@ public class HomeController {
     @GetMapping("/create")
     public ModelAndView showCreate(){
         ModelAndView modelAndView = new ModelAndView("create");
+        Customer customer = new Customer();
+        modelAndView.addObject("customer", customer);
         return modelAndView;
     }
     @PostMapping ("/create")
-    public ModelAndView create(@ModelAttribute Customer customer){
+    public ModelAndView create(@ModelAttribute Customer customer, @RequestParam MultipartFile upImg){
+        String fileName = upImg.getOriginalFilename();
+        try {
+            FileCopyUtils.copy(upImg.getBytes(), new File("E:\\Tu\\modul4\\Demo_Thymeleaf_MD4-master\\Demo_Thymeleaf_MD4-master\\src\\main\\webapp\\WEB-INF\\file\\" + fileName));
+            String urlImg = "/i/"+ fileName;
+            customer.setImg(urlImg);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         customerService.save(customer);
         ModelAndView modelAndView = new ModelAndView("redirect:/customer");
         return modelAndView;
     }
 
     @GetMapping("/delete")
-    public ModelAndView deleteCustomer(@RequestParam int id){
+    public ModelAndView deleteCustomer(@RequestParam int id, @RequestParam MultipartFile imgDelete){
+        String fileName =imgDelete.getOriginalFilename();
+        File file = new File("E:\\Tu\\modul4\\Demo_Thymeleaf_MD4-master\\Demo_Thymeleaf_MD4-master\\src\\main\\webapp\\WEB-INF\\file\\"+ fileName);
+        file.delete();
         int index = customerService.findById(id);
         customerService.delete(index);
         ModelAndView modelAndView = new ModelAndView("redirect:/customer");
@@ -48,20 +65,37 @@ public class HomeController {
     }
 
     @PostMapping ("/edit")
-    public ModelAndView editCustomer(@ModelAttribute Customer customer){
+    public ModelAndView editCustomer(@ModelAttribute Customer customer, @RequestParam MultipartFile upImg, @RequestParam String img){
+        String fileName = upImg.getOriginalFilename();
+        if (upImg != null) {
+            try {
+                FileCopyUtils.copy(upImg.getBytes(), new File("E:\\Tu\\modul4\\Demo_Thymeleaf_MD4-master\\Demo_Thymeleaf_MD4-master\\src\\main\\webapp\\WEB-INF\\file\\" + fileName));
+                String urlImg = "/i/"+ fileName;
+                customer.setImg(urlImg);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+        else {
+            customer.setImg(img);
+        }
+
+
         int index= (customerService.findById(customer.getId())) ;
         customerService.edit(index, customer);
         ModelAndView modelAndView = new ModelAndView("redirect:/customer");
         return modelAndView;
     }
 
-    @GetMapping("/abc")
-    public String demoBinlding(){
-       return "demobinlding";
-    }
     @PostMapping("/uppFile")
-    public String upFile(@RequestParam MultipartFile uppImg) {
-
+        public String uppFile(@RequestParam MultipartFile upImg) {
+        String fileName = upImg.getOriginalFilename();
+        try {
+            FileCopyUtils.copy(upImg.getBytes(), new File("E:\\Tu\\modul4\\Demo_Thymeleaf_MD4-master\\Demo_Thymeleaf_MD4-master\\src\\main\\webapp\\WEB-INF\\file\\" + fileName));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return "redirect:/customer";
     }
 
